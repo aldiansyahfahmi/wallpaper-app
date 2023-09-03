@@ -1,8 +1,10 @@
+import 'package:wallpaper_app/shared_libraries/utils/navigation/arguments/photos_argument.dart';
+
 import '../../navigation/navigation_helper.dart';
 import 'app_routes.dart';
 
 abstract class HomeRouter {
-  void navigateToOtherScreen();
+  void navigateToPhotosScreen({required PhotosArgument argument});
 }
 
 class HomeRouterImpl implements HomeRouter {
@@ -11,7 +13,7 @@ class HomeRouterImpl implements HomeRouter {
   HomeRouterImpl({required this.navigationHelper});
 
   @override
-  void navigateToOtherScreen() {
-    navigationHelper.pushNamed(AppRoutes.other);
+  void navigateToPhotosScreen({required PhotosArgument argument}) {
+    navigationHelper.pushNamed(AppRoutes.photos, arguments: argument);
   }
 }

@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:wallpaper_app/injections/injections.dart';
 import 'package:wallpaper_app/presentation/home/bloc/trending_photos_cubit/trending_photos_cubit.dart';
+import 'package:wallpaper_app/presentation/photos/ui/photos_screen.dart';
+import 'package:wallpaper_app/shared_libraries/utils/navigation/arguments/photos_argument.dart';
 import '../presentation/home/ui/home_screen.dart';
 import '../shared_libraries/utils/navigation/navigation_helper.dart';
 import '../shared_libraries/utils/navigation/router/app_routes.dart';
@@ -35,20 +37,26 @@ class MyApp extends StatelessWidget {
           home: BlocProvider(
             create: (context) => TrendingPhotosCubit(
               getTrendingPhotosUseCase: sl(),
-            )..getTrendingPhotos(),
-            child: const HomeScreen(),
+            )..getTrendingPhotos(page: 1),
+            child: HomeScreen(),
           ),
           navigatorKey: NavigationHelperImpl.navigatorKey,
           onGenerateRoute: (settings) {
+            final argument = settings.arguments;
             switch (settings.name) {
-              case AppRoutes.home:
+              case AppRoutes.photos:
                 return PageTransition(
-                  child: const HomeScreen(),
+                  child: BlocProvider(
+                    create: (context) => TrendingPhotosCubit(
+                      getTrendingPhotosUseCase: sl(),
+                    ),
+                    child: PhotosScreen(argument: argument as PhotosArgument),
+                  ),
                   type: PageTransitionType.rightToLeft,
                 );
               default:
                 return PageTransition(
-                  child: const HomeScreen(),
+                  child: HomeScreen(),
                   type: PageTransitionType.rightToLeft,
                 );
             }

@@ -1,7 +1,19 @@
 import 'package:wallpaper_app/domains/wallpaper/data/models/response/photo_response_dto.dart';
 import 'package:wallpaper_app/domains/wallpaper/domain/entities/response/photo_response_entity.dart';
+import 'package:wallpaper_app/shared_libraries/core/network/models/api_response.dart';
 
 class WallpaperMapper {
+  ApiResponse<List<PhotoResponseEntity>> mapApiResponseDtoToEntity(
+          ApiResponse<List<PhotoResponseDto>> data) =>
+      ApiResponse(
+        nextPage: data.nextPage,
+        page: data.page,
+        perPage: data.perPage,
+        prefPage: data.prefPage,
+        totalResults: data.totalResults,
+        data: mapPhotoResponseDtoToEntity(data.data!),
+        onDeserialized: (_) => [],
+      );
   List<PhotoResponseEntity> mapPhotoResponseDtoToEntity(
       List<PhotoResponseDto> data) {
     List<PhotoResponseEntity> entity = [];

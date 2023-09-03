@@ -4,6 +4,7 @@ import 'package:wallpaper_app/domains/wallpaper/data/datasources/remote/wallpape
 import 'package:wallpaper_app/domains/wallpaper/data/mapper/wallpaper_mapper.dart';
 import 'package:wallpaper_app/domains/wallpaper/domain/entities/response/photo_response_entity.dart';
 import 'package:wallpaper_app/domains/wallpaper/domain/repositories/wallpaper_repository.dart';
+import 'package:wallpaper_app/shared_libraries/core/network/models/api_response.dart';
 import 'package:wallpaper_app/shared_libraries/utils/constants/app_constants.dart';
 import 'package:wallpaper_app/shared_libraries/utils/error/failure_response.dart';
 
@@ -17,11 +18,12 @@ class WallpaperRepositoryImpl implements WallpaperRepository {
   });
 
   @override
-  Future<Either<FailureResponse, List<PhotoResponseEntity>>>
-      getTrendingPhotos() async {
+  Future<Either<FailureResponse, ApiResponse<List<PhotoResponseEntity>>>>
+      getTrendingPhotos({required int page}) async {
     try {
-      final response = await wallpaperRemoteDatasource.getTrendingPhotos();
-      return Right(wallpaperMapper.mapPhotoResponseDtoToEntity(response.data!));
+      final response =
+          await wallpaperRemoteDatasource.getTrendingPhotos(page: page);
+      return Right(wallpaperMapper.mapApiResponseDtoToEntity(response));
     } on DioException catch (error) {
       return Left(
         FailureResponse(
