@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:wallpaper_app/injections/injections.dart';
-import 'package:wallpaper_app/presentation/home/bloc/curated_photos_cubit/curated_photos_cubit.dart';
+import 'package:wallpaper_app/presentation/home/bloc/trending_photos_cubit/trending_photos_cubit.dart';
 import '../presentation/home/ui/home_screen.dart';
 import '../shared_libraries/utils/navigation/navigation_helper.dart';
 import '../shared_libraries/utils/navigation/router/app_routes.dart';
@@ -33,9 +33,9 @@ class MyApp extends StatelessWidget {
             );
           },
           home: BlocProvider(
-            create: (context) => CuratedPhotosCubit(
-              getCuratedPhotosUseCase: sl(),
-            )..getCuratedPhotos(),
+            create: (context) => TrendingPhotosCubit(
+              getTrendingPhotosUseCase: sl(),
+            )..getTrendingPhotos(),
             child: const HomeScreen(),
           ),
           navigatorKey: NavigationHelperImpl.navigatorKey,

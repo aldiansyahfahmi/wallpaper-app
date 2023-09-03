@@ -2,7 +2,7 @@ import 'package:wallpaper_app/domains/wallpaper/data/datasources/remote/wallpape
 import 'package:wallpaper_app/domains/wallpaper/data/mapper/wallpaper_mapper.dart';
 import 'package:wallpaper_app/domains/wallpaper/data/repositories/wallpaper_repository_impl.dart';
 import 'package:wallpaper_app/domains/wallpaper/domain/repositories/wallpaper_repository.dart';
-import 'package:wallpaper_app/domains/wallpaper/domain/usecases/get_curated_photos_usecase.dart';
+import 'package:wallpaper_app/domains/wallpaper/domain/usecases/get_trending_photos_usecase.dart';
 import 'package:wallpaper_app/injections/injections.dart';
 
 class WallpaperDependency {
@@ -35,8 +35,8 @@ class WallpaperDependency {
   }
 
   void _registerUseCases() {
-    sl.registerLazySingleton<GetCuratedPhotosUseCase>(
-      () => GetCuratedPhotosUseCase(
+    sl.registerLazySingleton<GetTrendingPhotosUseCase>(
+      () => GetTrendingPhotosUseCase(
         wallpaperRepository: sl(),
       ),
     );

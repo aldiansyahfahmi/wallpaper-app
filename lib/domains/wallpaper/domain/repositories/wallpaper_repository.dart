@@ -3,5 +3,6 @@ import 'package:wallpaper_app/domains/wallpaper/domain/entities/response/photo_r
 import 'package:wallpaper_app/shared_libraries/utils/error/failure_response.dart';
 
 abstract class WallpaperRepository {
-  Future<Either<FailureResponse, List<PhotoResponseEntity>>> getCurated();
+  Future<Either<FailureResponse, List<PhotoResponseEntity>>>
+      getTrendingPhotos();
 }

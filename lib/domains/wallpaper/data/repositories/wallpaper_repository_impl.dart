@@ -18,9 +18,9 @@ class WallpaperRepositoryImpl implements WallpaperRepository {
 
   @override
   Future<Either<FailureResponse, List<PhotoResponseEntity>>>
-      getCurated() async {
+      getTrendingPhotos() async {
     try {
-      final response = await wallpaperRemoteDatasource.getCuratedPhotos();
+      final response = await wallpaperRemoteDatasource.getTrendingPhotos();
       return Right(wallpaperMapper.mapPhotoResponseDtoToEntity(response.data!));
     } on DioException catch (error) {
       return Left(

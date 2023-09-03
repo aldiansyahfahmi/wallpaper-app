@@ -4,13 +4,13 @@ import 'package:wallpaper_app/domains/wallpaper/domain/repositories/wallpaper_re
 import 'package:wallpaper_app/shared_libraries/utils/error/failure_response.dart';
 import 'package:wallpaper_app/shared_libraries/utils/usecase/usecase.dart';
 
-class GetCuratedPhotosUseCase
+class GetTrendingPhotosUseCase
     extends UseCase<List<PhotoResponseEntity>, NoParams> {
   final WallpaperRepository wallpaperRepository;
 
-  GetCuratedPhotosUseCase({required this.wallpaperRepository});
+  GetTrendingPhotosUseCase({required this.wallpaperRepository});
 
   @override
   Future<Either<FailureResponse, List<PhotoResponseEntity>>> call(params) =>
-      wallpaperRepository.getCurated();
+      wallpaperRepository.getTrendingPhotos();
 }

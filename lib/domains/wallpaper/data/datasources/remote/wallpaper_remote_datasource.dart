@@ -4,7 +4,7 @@ import 'package:wallpaper_app/shared_libraries/core/network/models/api_response.
 import 'package:wallpaper_app/shared_libraries/utils/constants/app_constants.dart';
 
 abstract class WallpaperRemoteDatasource {
-  Future<ApiResponse<List<PhotoResponseDto>>> getCuratedPhotos();
+  Future<ApiResponse<List<PhotoResponseDto>>> getTrendingPhotos();
 }
 
 class WallpaperRemoteDatasourceImpl implements WallpaperRemoteDatasource {
@@ -13,7 +13,7 @@ class WallpaperRemoteDatasourceImpl implements WallpaperRemoteDatasource {
   WallpaperRemoteDatasourceImpl({required this.dio});
 
   @override
-  Future<ApiResponse<List<PhotoResponseDto>>> getCuratedPhotos() async {
+  Future<ApiResponse<List<PhotoResponseDto>>> getTrendingPhotos() async {
     try {
       final response = await dio.get(AppConstants.appApi.curated);
       return ApiResponse.fromJson(

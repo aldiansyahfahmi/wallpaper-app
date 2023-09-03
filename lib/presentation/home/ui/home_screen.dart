@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:wallpaper_app/presentation/home/bloc/curated_photos_cubit/curated_photos_cubit.dart';
-import 'package:wallpaper_app/presentation/home/bloc/curated_photos_cubit/curated_photos_state.dart';
+import 'package:wallpaper_app/presentation/home/bloc/trending_photos_cubit/trending_photos_cubit.dart';
+import 'package:wallpaper_app/presentation/home/bloc/trending_photos_cubit/trending_photos_state.dart';
 import 'package:wallpaper_app/presentation/home/ui/component/search_card.dart';
 import 'package:wallpaper_app/shared_libraries/component/loading/shimmer_loading.dart';
 import 'package:wallpaper_app/shared_libraries/utils/resources/categories.dart';
@@ -91,9 +91,9 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: 16.h,
             ),
-            BlocBuilder<CuratedPhotosCubit, CuratedPhotosState>(
+            BlocBuilder<TrendingPhotosCubit, TrendingPhotosState>(
               builder: (context, state) {
-                return state.curatedPhotosState.observe(
+                return state.trendingPhotosState.observe(
                   onLoading: MasonryGridView.count(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
