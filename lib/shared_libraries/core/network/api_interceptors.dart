@@ -2,24 +2,18 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../utils/constants/app_constants.dart';
 
 class ApiInterceptors extends Interceptor {
-  final SharedPreferences sharedPreferences;
+  final String token;
 
-  ApiInterceptors({required this.sharedPreferences});
+  ApiInterceptors({required this.token});
 
   Map<String, dynamic> _defaultHeader() {
-    String? authorizationToken = sharedPreferences.getString(
-      AppConstants.cachedKey.tokenKey,
-    );
+    String authorizationToken = token;
     Map<String, String> headers = {};
     headers['Content-Type'] = 'application/json';
     headers['Accept'] = 'application/json';
-    headers['Authorization'] =
-        authorizationToken != null ? 'Bearer $authorizationToken' : "";
+    headers['Authorization'] = authorizationToken;
     return headers;
   }
 

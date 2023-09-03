@@ -1,14 +1,13 @@
 import 'package:dio/dio.dart';
 import 'api_interceptors.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DioHandler {
   final String apiBaseUrl;
-  late SharedPreferences sharedPreferences;
+  final String token;
 
   DioHandler({
     required this.apiBaseUrl,
-    required this.sharedPreferences,
+    required this.token,
   });
 
   Dio get dio => _getDio();
@@ -20,11 +19,8 @@ class DioHandler {
       receiveTimeout: const Duration(seconds: 30),
     );
     final dio = Dio(options);
-    dio.interceptors.add(ApiInterceptors(sharedPreferences: sharedPreferences));
+    dio.interceptors.add(ApiInterceptors(token: token));
 
     return dio;
   }
 }
-
-
-

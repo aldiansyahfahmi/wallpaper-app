@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:wallpaper_app/domains/wallpaper/di/dependency.dart';
 
 import '../shared_libraries/core/di/core_module.dart';
 import '../shared_libraries/utils/di/utils_module.dart';
@@ -16,5 +17,7 @@ class Injections {
     RegisterUtilsModule();
   }
 
-  void _registerDomains() {}
+  void _registerDomains() {
+    WallpaperDependency();
+  }
 }
