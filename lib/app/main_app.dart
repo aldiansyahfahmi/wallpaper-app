@@ -75,7 +75,12 @@ class MyApp extends StatelessWidget {
                   );
                 case AppRoutes.search:
                   return PageTransition(
-                    child: const SearchScreen(),
+                    child: BlocProvider(
+                      create: (context) => PhotosCubit(
+                        getPhotosUseCase: sl(),
+                      ),
+                      child: const SearchScreen(),
+                    ),
                     type: PageTransitionType.rightToLeft,
                   );
                 default:

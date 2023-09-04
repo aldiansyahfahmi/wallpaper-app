@@ -16,27 +16,15 @@ class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Text(
-              'Categories',
-              style: TextStyle(
-                color: ColorName.white,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const Spacer(),
-            Text(
-              'View More',
-              style: TextStyle(
-                color: Colors.amber,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
+        Text(
+          'Categories',
+          style: TextStyle(
+            color: ColorName.white,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         SizedBox(
           height: 16.h,

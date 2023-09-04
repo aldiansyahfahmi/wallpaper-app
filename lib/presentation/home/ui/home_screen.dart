@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wallpaper_app/presentation/home/ui/component/categories.dart';
 import 'package:wallpaper_app/presentation/home/ui/component/trending_photos.dart';
 import 'package:wallpaper_app/presentation/home/ui/component/search_card.dart';
 import 'package:wallpaper_app/shared_libraries/utils/resources/colors.gen.dart';
@@ -19,6 +20,7 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: 24.h,
             ),
+            Categories(),
             SizedBox(
               height: 24.h,
             ),

@@ -38,6 +38,12 @@ class _PhotosScreenState extends State<PhotosScreen> {
   }
 
   @override
+  void dispose() {
+    context.read<PhotosCubit>().pagingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final photosCubit = context.read<PhotosCubit>();
     return Scaffold(
@@ -54,21 +60,18 @@ class _PhotosScreenState extends State<PhotosScreen> {
           ),
         ),
       ),
-      body: PagedGridView<int, PhotoResponseEntity>(
+      body: PagedMasonryGridView.count(
         padding: const EdgeInsets.all(16),
         shrinkWrap: true,
-        showNewPageErrorIndicatorAsGridChild: false,
-        showNewPageProgressIndicatorAsGridChild: false,
-        showNoMoreItemsIndicatorAsGridChild: false,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          childAspectRatio: 0.7,
-        ),
+        crossAxisCount: 3,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
         pagingController: photosCubit.pagingController,
         builderDelegate: PagedChildBuilderDelegate<PhotoResponseEntity>(
-          firstPageProgressIndicatorBuilder: (_) => const PhotoLoading(),
+          firstPageProgressIndicatorBuilder: (_) => const Padding(
+            padding: EdgeInsets.all(16),
+            child: PhotoLoading(),
+          ),
           newPageProgressIndicatorBuilder: (_) => const Padding(
             padding: EdgeInsets.all(24),
             child: Center(
