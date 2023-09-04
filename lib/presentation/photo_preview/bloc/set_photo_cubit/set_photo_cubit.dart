@@ -15,7 +15,7 @@ class SetPhotoCubit extends Cubit<SetPhotoState> {
     emit(SetPhotoState(setPhotoState: ViewData.loading()));
     try {
       int location = setPhotoTo == SetPhotoTo.wallpaper
-          ? WallpaperManager.BOTH_SCREEN
+          ? WallpaperManager.HOME_SCREEN
           : WallpaperManager.LOCK_SCREEN;
       var file = await DefaultCacheManager().getSingleFile(imageUrl);
       await WallpaperManager.setWallpaperFromFile(file.path, location);
