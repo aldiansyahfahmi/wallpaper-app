@@ -48,13 +48,6 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   @override
-  void dispose() {
-    _searchController.dispose();
-    context.read<PhotosCubit>().pagingController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final photosCubit = context.read<PhotosCubit>();
     return Scaffold(
