@@ -9,6 +9,7 @@ import 'package:wallpaper_app/presentation/photo_preview/bloc/set_photo_cubit/se
 import 'package:wallpaper_app/presentation/photo_preview/ui/photo_preview_screen.dart';
 import 'package:wallpaper_app/presentation/photos/bloc/photos_cubit/photos_cubit.dart';
 import 'package:wallpaper_app/presentation/photos/ui/photos_screen.dart';
+import 'package:wallpaper_app/presentation/search/ui/search_screen.dart';
 import 'package:wallpaper_app/shared_libraries/utils/constants/app_constants.dart';
 import 'package:wallpaper_app/shared_libraries/utils/navigation/arguments/photos_argument.dart';
 import '../presentation/home/ui/home_screen.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
                     page: 1,
                   ),
                 ),
-              child: HomeScreen(),
+              child: const HomeScreen(),
             ),
             navigatorKey: NavigationHelperImpl.navigatorKey,
             onGenerateRoute: (settings) {
@@ -72,9 +73,14 @@ class MyApp extends StatelessWidget {
                         argument: argument as PhotoResponseEntity),
                     type: PageTransitionType.rightToLeft,
                   );
+                case AppRoutes.search:
+                  return PageTransition(
+                    child: const SearchScreen(),
+                    type: PageTransitionType.rightToLeft,
+                  );
                 default:
                   return PageTransition(
-                    child: HomeScreen(),
+                    child: const HomeScreen(),
                     type: PageTransitionType.rightToLeft,
                   );
               }

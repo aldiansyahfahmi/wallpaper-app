@@ -7,6 +7,7 @@ import 'app_routes.dart';
 abstract class HomeRouter {
   void navigateToPhotosScreen({required PhotosArgument argument});
   void navigateToPhotoPreviewScreen({required PhotoResponseEntity argument});
+  void navigateToSearchScreen();
 }
 
 class HomeRouterImpl implements HomeRouter {
@@ -22,5 +23,10 @@ class HomeRouterImpl implements HomeRouter {
   @override
   void navigateToPhotoPreviewScreen({required PhotoResponseEntity argument}) {
     navigationHelper.pushNamed(AppRoutes.photoPreview, arguments: argument);
+  }
+
+  @override
+  void navigateToSearchScreen() {
+    navigationHelper.pushNamed(AppRoutes.search);
   }
 }
