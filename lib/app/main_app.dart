@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
           child: MaterialApp(
             title: 'Wallpaper App',
             debugShowCheckedModeBanner: Config.isDebug,
+            themeMode: ThemeMode.light,
             theme: ThemeData(
               scaffoldBackgroundColor: ColorName.white,
             ),

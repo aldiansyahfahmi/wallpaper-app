@@ -51,12 +51,12 @@ class ModalBottomSheetCard extends StatelessWidget {
             children: [
               ListTile(
                 leading: const Icon(
-                  Icons.image,
+                  Icons.home_outlined,
                   size: 30,
                   color: ColorName.white,
                 ),
                 title: Text(
-                  'Set Wallpaper',
+                  'Set Home Screen',
                   style: TextStyle(
                     color: ColorName.white,
                     fontSize: 16.sp,
@@ -64,12 +64,12 @@ class ModalBottomSheetCard extends StatelessWidget {
                 ),
                 onTap: () => context.read<SetPhotoCubit>().setPhoto(
                       imageUrl: argument.src.portrait,
-                      setPhotoTo: SetPhotoTo.wallpaper,
+                      setPhotoTo: SetPhotoTo.homeScreen,
                     ),
               ),
               ListTile(
                 leading: const Icon(
-                  Icons.lock,
+                  Icons.lock_outlined,
                   size: 30,
                   color: ColorName.white,
                 ),
@@ -83,6 +83,24 @@ class ModalBottomSheetCard extends StatelessWidget {
                 onTap: () => context.read<SetPhotoCubit>().setPhoto(
                       imageUrl: argument.src.portrait,
                       setPhotoTo: SetPhotoTo.lockScreen,
+                    ),
+              ),
+              ListTile(
+                leading: const Icon(
+                  Icons.wallpaper,
+                  size: 30,
+                  color: ColorName.white,
+                ),
+                title: Text(
+                  'Set Home & Lock Screen',
+                  style: TextStyle(
+                    color: ColorName.white,
+                    fontSize: 16.sp,
+                  ),
+                ),
+                onTap: () => context.read<SetPhotoCubit>().setPhoto(
+                      imageUrl: argument.src.portrait,
+                      setPhotoTo: SetPhotoTo.both,
                     ),
               ),
             ],

@@ -12,6 +12,18 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorName.black,
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: ColorName.black,
+        title: Text(
+          'Wallpaper App',
+          style: TextStyle(
+            color: ColorName.white,
+            fontWeight: FontWeight.w500,
+            fontSize: 18.sp,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(16),

@@ -14,7 +14,8 @@ class PhotoLoading extends StatelessWidget {
     return MasonryGridView.count(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: 3,
+      crossAxisCount:
+          MediaQuery.of(context).orientation == Orientation.portrait ? 3 : 6,
       mainAxisSpacing: 8,
       crossAxisSpacing: 8,
       itemCount: 15,

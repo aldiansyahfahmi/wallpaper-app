@@ -60,8 +60,11 @@ class _PhotosScreenState extends State<PhotosScreen> {
         showNewPageErrorIndicatorAsGridChild: false,
         showNewPageProgressIndicatorAsGridChild: false,
         showNoMoreItemsIndicatorAsGridChild: false,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount:
+              MediaQuery.of(context).orientation == Orientation.portrait
+                  ? 3
+                  : 6,
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
           childAspectRatio: 0.7,
