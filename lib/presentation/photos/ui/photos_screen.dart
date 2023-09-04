@@ -4,10 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:wallpaper_app/domains/wallpaper/domain/entities/body/photo_request_entity.dart';
 import 'package:wallpaper_app/domains/wallpaper/domain/entities/response/photo_response_entity.dart';
+import 'package:wallpaper_app/injections/injections.dart';
 import 'package:wallpaper_app/presentation/photos/bloc/photos_cubit/photos_cubit.dart';
 import 'package:wallpaper_app/shared_libraries/component/card/photo_card.dart';
 import 'package:wallpaper_app/shared_libraries/component/loading/photo_loading.dart';
 import 'package:wallpaper_app/shared_libraries/utils/navigation/arguments/photos_argument.dart';
+import 'package:wallpaper_app/shared_libraries/utils/navigation/router/home_router.dart';
 import 'package:wallpaper_app/shared_libraries/utils/resources/colors.gen.dart';
 
 class PhotosScreen extends StatefulWidget {
@@ -19,6 +21,7 @@ class PhotosScreen extends StatefulWidget {
 }
 
 class _PhotosScreenState extends State<PhotosScreen> {
+  final HomeRouter _homeRouter = sl();
   @override
   void initState() {
     context.read<PhotosCubit>().pagingController.addPageRequestListener(
@@ -74,7 +77,10 @@ class _PhotosScreenState extends State<PhotosScreen> {
               ),
             ),
           ),
-          itemBuilder: (context, item, index) => PhotoCard(photo: item),
+          itemBuilder: (context, item, index) => GestureDetector(
+              onTap: () =>
+                  _homeRouter.navigateToPhotoPreviewScreen(argument: item),
+              child: PhotoCard(photo: item)),
         ),
       ),
     );

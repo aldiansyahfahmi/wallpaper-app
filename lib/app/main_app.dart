@@ -3,7 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:wallpaper_app/domains/wallpaper/domain/entities/body/photo_request_entity.dart';
+import 'package:wallpaper_app/domains/wallpaper/domain/entities/response/photo_response_entity.dart';
 import 'package:wallpaper_app/injections/injections.dart';
+import 'package:wallpaper_app/presentation/photo_preview/bloc/set_photo_cubit/set_photo_cubit.dart';
+import 'package:wallpaper_app/presentation/photo_preview/ui/photo_preview_screen.dart';
 import 'package:wallpaper_app/presentation/photos/bloc/photos_cubit/photos_cubit.dart';
 import 'package:wallpaper_app/presentation/photos/ui/photos_screen.dart';
 import 'package:wallpaper_app/shared_libraries/utils/constants/app_constants.dart';
@@ -24,50 +27,59 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-          title: 'Wallpaper App',
-          debugShowCheckedModeBanner: Config.isDebug,
-          theme: ThemeData(
-            scaffoldBackgroundColor: ColorName.white,
-          ),
-          builder: (context, child) {
-            return ScrollConfiguration(
-              behavior: MyBehavior(),
-              child: child!,
-            );
-          },
-          home: BlocProvider(
-            create: (context) => PhotosCubit(
-              getPhotosUseCase: sl(),
-            )..getPhotos(
-                requestEntity: PhotoRequestEntity(
-                  endpoint: AppConstants.appApi.curated,
-                  page: 1,
-                ),
-              ),
-            child: HomeScreen(),
-          ),
-          navigatorKey: NavigationHelperImpl.navigatorKey,
-          onGenerateRoute: (settings) {
-            final argument = settings.arguments;
-            switch (settings.name) {
-              case AppRoutes.photos:
-                return PageTransition(
-                  child: BlocProvider(
-                    create: (context) => PhotosCubit(
-                      getPhotosUseCase: sl(),
-                    ),
-                    child: PhotosScreen(argument: argument as PhotosArgument),
+        return BlocProvider(
+          create: (context) => SetPhotoCubit(),
+          child: MaterialApp(
+            title: 'Wallpaper App',
+            debugShowCheckedModeBanner: Config.isDebug,
+            theme: ThemeData(
+              scaffoldBackgroundColor: ColorName.white,
+            ),
+            builder: (context, child) {
+              return ScrollConfiguration(
+                behavior: MyBehavior(),
+                child: child!,
+              );
+            },
+            home: BlocProvider(
+              create: (context) => PhotosCubit(
+                getPhotosUseCase: sl(),
+              )..getPhotos(
+                  requestEntity: PhotoRequestEntity(
+                    endpoint: AppConstants.appApi.curated,
+                    page: 1,
                   ),
-                  type: PageTransitionType.rightToLeft,
-                );
-              default:
-                return PageTransition(
-                  child: HomeScreen(),
-                  type: PageTransitionType.rightToLeft,
-                );
-            }
-          },
+                ),
+              child: HomeScreen(),
+            ),
+            navigatorKey: NavigationHelperImpl.navigatorKey,
+            onGenerateRoute: (settings) {
+              final argument = settings.arguments;
+              switch (settings.name) {
+                case AppRoutes.photos:
+                  return PageTransition(
+                    child: BlocProvider(
+                      create: (context) => PhotosCubit(
+                        getPhotosUseCase: sl(),
+                      ),
+                      child: PhotosScreen(argument: argument as PhotosArgument),
+                    ),
+                    type: PageTransitionType.rightToLeft,
+                  );
+                case AppRoutes.photoPreview:
+                  return PageTransition(
+                    child: PhotoPreviewScreen(
+                        argument: argument as PhotoResponseEntity),
+                    type: PageTransitionType.rightToLeft,
+                  );
+                default:
+                  return PageTransition(
+                    child: HomeScreen(),
+                    type: PageTransitionType.rightToLeft,
+                  );
+              }
+            },
+          ),
         );
       },
     );

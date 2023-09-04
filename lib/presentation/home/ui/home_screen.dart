@@ -128,7 +128,10 @@ class HomeScreen extends StatelessWidget {
                     itemCount: data!.length,
                     itemBuilder: (context, index) {
                       final photo = data[index];
-                      return PhotoCard(photo: photo);
+                      return GestureDetector(
+                          onTap: () => _homeRouter.navigateToPhotoPreviewScreen(
+                              argument: photo),
+                          child: PhotoCard(photo: photo));
                     },
                   ),
                 );
