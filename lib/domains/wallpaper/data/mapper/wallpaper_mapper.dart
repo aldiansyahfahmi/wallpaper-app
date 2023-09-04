@@ -1,4 +1,6 @@
+import 'package:wallpaper_app/domains/wallpaper/data/models/body/photo_request_dto.dart';
 import 'package:wallpaper_app/domains/wallpaper/data/models/response/photo_response_dto.dart';
+import 'package:wallpaper_app/domains/wallpaper/domain/entities/body/photo_request_entity.dart';
 import 'package:wallpaper_app/domains/wallpaper/domain/entities/response/photo_response_entity.dart';
 import 'package:wallpaper_app/shared_libraries/core/network/models/api_response.dart';
 
@@ -50,5 +52,12 @@ class WallpaperMapper {
         portrait: data.portrait ?? '',
         landscape: data.landscape ?? '',
         tiny: data.tiny ?? '',
+      );
+
+  PhotoRequestDto mapPhotoRequestEntityToPhotoRequestDto(
+          PhotoRequestEntity data) =>
+      PhotoRequestDto(
+        endpoint: data.endpoint,
+        page: data.page,
       );
 }

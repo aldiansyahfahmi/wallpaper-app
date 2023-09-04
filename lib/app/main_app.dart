@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:wallpaper_app/domains/wallpaper/domain/entities/body/photo_request_entity.dart';
 import 'package:wallpaper_app/injections/injections.dart';
 import 'package:wallpaper_app/presentation/home/bloc/trending_photos_cubit/trending_photos_cubit.dart';
 import 'package:wallpaper_app/presentation/photos/ui/photos_screen.dart';
+import 'package:wallpaper_app/shared_libraries/utils/constants/app_constants.dart';
 import 'package:wallpaper_app/shared_libraries/utils/navigation/arguments/photos_argument.dart';
 import '../presentation/home/ui/home_screen.dart';
 import '../shared_libraries/utils/navigation/navigation_helper.dart';
@@ -37,7 +39,12 @@ class MyApp extends StatelessWidget {
           home: BlocProvider(
             create: (context) => TrendingPhotosCubit(
               getTrendingPhotosUseCase: sl(),
-            )..getTrendingPhotos(page: 1),
+            )..getTrendingPhotos(
+                requestEntity: PhotoRequestEntity(
+                  endpoint: AppConstants.appApi.curated,
+                  page: 1,
+                ),
+              ),
             child: HomeScreen(),
           ),
           navigatorKey: NavigationHelperImpl.navigatorKey,

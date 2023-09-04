@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:wallpaper_app/domains/wallpaper/domain/entities/body/photo_request_entity.dart';
 import 'package:wallpaper_app/domains/wallpaper/domain/entities/response/photo_response_entity.dart';
 import 'package:wallpaper_app/domains/wallpaper/domain/usecases/get_trending_photos_usecase.dart';
 import '/shared_libraries/utils/state/view_data_state.dart';
@@ -14,9 +17,9 @@ class TrendingPhotosCubit extends Cubit<TrendingPhotosState> {
   final PagingController<int, PhotoResponseEntity> pagingController =
       PagingController(firstPageKey: 1);
 
-  void getTrendingPhotos({required int page}) async {
+  void getTrendingPhotos({required PhotoRequestEntity requestEntity}) async {
     emit(TrendingPhotosState(trendingPhotosState: ViewData.loading()));
-    final result = await getTrendingPhotosUseCase.call(page);
+    final result = await getTrendingPhotosUseCase.call(requestEntity);
     result.fold(
       (failure) => emit(
         TrendingPhotosState(
@@ -41,10 +44,11 @@ class TrendingPhotosCubit extends Cubit<TrendingPhotosState> {
             ),
           );
         }
+        log('page : ${requestEntity.page}');
         if (isLastPage) {
           pagingController.appendLastPage(result.data!);
         } else {
-          pagingController.appendPage(result.data!, page + 1);
+          pagingController.appendPage(result.data!, requestEntity.page + 1);
         }
       },
     );

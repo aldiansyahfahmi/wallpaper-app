@@ -28,6 +28,7 @@ class AppApi {
   String get baseUrlProduction => 'https://api.pexels.com/v1/';
 
   String get curated => 'curated';
+  String get search => 'search?query=';
 }
 
 class ErrorKey {

@@ -8,6 +8,7 @@ import 'package:wallpaper_app/presentation/home/ui/component/search_card.dart';
 import 'package:wallpaper_app/shared_libraries/component/card/category_card.dart';
 import 'package:wallpaper_app/shared_libraries/component/card/photo_card.dart';
 import 'package:wallpaper_app/shared_libraries/component/loading/photo_loading.dart';
+import 'package:wallpaper_app/shared_libraries/utils/constants/app_constants.dart';
 import 'package:wallpaper_app/shared_libraries/utils/navigation/arguments/photos_argument.dart';
 import 'package:wallpaper_app/shared_libraries/utils/navigation/router/home_router.dart';
 import 'package:wallpaper_app/shared_libraries/utils/resources/categories.dart';
@@ -68,7 +69,15 @@ class HomeScreen extends StatelessWidget {
               itemCount: categories.length,
               itemBuilder: (context, index) {
                 final data = categories[index];
-                return CategoryCard(data: data);
+                return GestureDetector(
+                  onTap: () => _homeRouter.navigateToPhotosScreen(
+                    argument: PhotosArgument(
+                      title: data.name,
+                      endpoint: AppConstants.appApi.search + data.name,
+                    ),
+                  ),
+                  child: CategoryCard(data: data),
+                );
               },
             ),
             SizedBox(
@@ -87,7 +96,10 @@ class HomeScreen extends StatelessWidget {
                 const Spacer(),
                 GestureDetector(
                   onTap: () => _homeRouter.navigateToPhotosScreen(
-                    argument: const PhotosArgument(title: 'Trending'),
+                    argument: PhotosArgument(
+                      title: 'Trending',
+                      endpoint: AppConstants.appApi.curated,
+                    ),
                   ),
                   child: Text(
                     'View More',
