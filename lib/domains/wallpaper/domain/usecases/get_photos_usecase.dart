@@ -6,11 +6,11 @@ import 'package:wallpaper_app/shared_libraries/core/network/models/api_response.
 import 'package:wallpaper_app/shared_libraries/utils/error/failure_response.dart';
 import 'package:wallpaper_app/shared_libraries/utils/usecase/usecase.dart';
 
-class GetTrendingPhotosUseCase extends UseCase<
-    ApiResponse<List<PhotoResponseEntity>>, PhotoRequestEntity> {
+class GetPhotosUseCase extends UseCase<ApiResponse<List<PhotoResponseEntity>>,
+    PhotoRequestEntity> {
   final WallpaperRepository wallpaperRepository;
 
-  GetTrendingPhotosUseCase({required this.wallpaperRepository});
+  GetPhotosUseCase({required this.wallpaperRepository});
 
   @override
   Future<Either<FailureResponse, ApiResponse<List<PhotoResponseEntity>>>> call(

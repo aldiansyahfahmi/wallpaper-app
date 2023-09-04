@@ -1,29 +1,27 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:wallpaper_app/domains/wallpaper/domain/entities/body/photo_request_entity.dart';
 import 'package:wallpaper_app/domains/wallpaper/domain/entities/response/photo_response_entity.dart';
-import 'package:wallpaper_app/domains/wallpaper/domain/usecases/get_trending_photos_usecase.dart';
+import 'package:wallpaper_app/domains/wallpaper/domain/usecases/get_photos_usecase.dart';
 import '/shared_libraries/utils/state/view_data_state.dart';
-import 'trending_photos_state.dart';
+import 'photos_state.dart';
 
-class TrendingPhotosCubit extends Cubit<TrendingPhotosState> {
-  final GetTrendingPhotosUseCase getTrendingPhotosUseCase;
+class PhotosCubit extends Cubit<PhotosState> {
+  final GetPhotosUseCase getPhotosUseCase;
 
-  TrendingPhotosCubit({required this.getTrendingPhotosUseCase})
-      : super(TrendingPhotosState(trendingPhotosState: ViewData.initial()));
+  PhotosCubit({required this.getPhotosUseCase})
+      : super(PhotosState(photosState: ViewData.initial()));
 
   final PagingController<int, PhotoResponseEntity> pagingController =
       PagingController(firstPageKey: 1);
 
-  void getTrendingPhotos({required PhotoRequestEntity requestEntity}) async {
-    emit(TrendingPhotosState(trendingPhotosState: ViewData.loading()));
-    final result = await getTrendingPhotosUseCase.call(requestEntity);
+  void getPhotos({required PhotoRequestEntity requestEntity}) async {
+    emit(PhotosState(photosState: ViewData.loading()));
+    final result = await getPhotosUseCase.call(requestEntity);
     result.fold(
       (failure) => emit(
-        TrendingPhotosState(
-          trendingPhotosState: ViewData.error(
+        PhotosState(
+          photosState: ViewData.error(
             message: failure.errorMessage,
             failure: failure,
           ),
@@ -33,18 +31,17 @@ class TrendingPhotosCubit extends Cubit<TrendingPhotosState> {
         final isLastPage = result.data!.length < result.perPage!;
         if (result.data!.isEmpty) {
           emit(
-            TrendingPhotosState(
-              trendingPhotosState: ViewData.noData(message: ''),
+            PhotosState(
+              photosState: ViewData.noData(message: ''),
             ),
           );
         } else {
           emit(
-            TrendingPhotosState(
-              trendingPhotosState: ViewData.loaded(data: result.data),
+            PhotosState(
+              photosState: ViewData.loaded(data: result.data),
             ),
           );
         }
-        log('page : ${requestEntity.page}');
         if (isLastPage) {
           pagingController.appendLastPage(result.data!);
         } else {

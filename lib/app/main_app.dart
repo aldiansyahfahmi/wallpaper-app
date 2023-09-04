@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:wallpaper_app/domains/wallpaper/domain/entities/body/photo_request_entity.dart';
 import 'package:wallpaper_app/injections/injections.dart';
-import 'package:wallpaper_app/presentation/home/bloc/trending_photos_cubit/trending_photos_cubit.dart';
+import 'package:wallpaper_app/presentation/photos/bloc/photos_cubit/photos_cubit.dart';
 import 'package:wallpaper_app/presentation/photos/ui/photos_screen.dart';
 import 'package:wallpaper_app/shared_libraries/utils/constants/app_constants.dart';
 import 'package:wallpaper_app/shared_libraries/utils/navigation/arguments/photos_argument.dart';
@@ -37,9 +37,9 @@ class MyApp extends StatelessWidget {
             );
           },
           home: BlocProvider(
-            create: (context) => TrendingPhotosCubit(
-              getTrendingPhotosUseCase: sl(),
-            )..getTrendingPhotos(
+            create: (context) => PhotosCubit(
+              getPhotosUseCase: sl(),
+            )..getPhotos(
                 requestEntity: PhotoRequestEntity(
                   endpoint: AppConstants.appApi.curated,
                   page: 1,
@@ -54,8 +54,8 @@ class MyApp extends StatelessWidget {
               case AppRoutes.photos:
                 return PageTransition(
                   child: BlocProvider(
-                    create: (context) => TrendingPhotosCubit(
-                      getTrendingPhotosUseCase: sl(),
+                    create: (context) => PhotosCubit(
+                      getPhotosUseCase: sl(),
                     ),
                     child: PhotosScreen(argument: argument as PhotosArgument),
                   ),

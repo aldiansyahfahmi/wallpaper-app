@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:wallpaper_app/domains/wallpaper/domain/entities/body/photo_request_entity.dart';
 import 'package:wallpaper_app/domains/wallpaper/domain/entities/response/photo_response_entity.dart';
-import 'package:wallpaper_app/presentation/home/bloc/trending_photos_cubit/trending_photos_cubit.dart';
+import 'package:wallpaper_app/presentation/photos/bloc/photos_cubit/photos_cubit.dart';
 import 'package:wallpaper_app/shared_libraries/component/card/photo_card.dart';
 import 'package:wallpaper_app/shared_libraries/component/loading/photo_loading.dart';
 import 'package:wallpaper_app/shared_libraries/utils/navigation/arguments/photos_argument.dart';
@@ -21,9 +21,9 @@ class PhotosScreen extends StatefulWidget {
 class _PhotosScreenState extends State<PhotosScreen> {
   @override
   void initState() {
-    context.read<TrendingPhotosCubit>().pagingController.addPageRequestListener(
+    context.read<PhotosCubit>().pagingController.addPageRequestListener(
       (pageKey) {
-        context.read<TrendingPhotosCubit>().getTrendingPhotos(
+        context.read<PhotosCubit>().getPhotos(
               requestEntity: PhotoRequestEntity(
                 endpoint: widget.argument.endpoint,
                 page: pageKey,
@@ -36,7 +36,7 @@ class _PhotosScreenState extends State<PhotosScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final trendingPhotosCubit = context.read<TrendingPhotosCubit>();
+    final photosCubit = context.read<PhotosCubit>();
     return Scaffold(
       backgroundColor: ColorName.black,
       appBar: AppBar(
@@ -52,6 +52,7 @@ class _PhotosScreenState extends State<PhotosScreen> {
         ),
       ),
       body: PagedGridView<int, PhotoResponseEntity>(
+        padding: const EdgeInsets.all(16),
         shrinkWrap: true,
         showNewPageErrorIndicatorAsGridChild: false,
         showNewPageProgressIndicatorAsGridChild: false,
@@ -62,7 +63,7 @@ class _PhotosScreenState extends State<PhotosScreen> {
           crossAxisSpacing: 8,
           childAspectRatio: 0.7,
         ),
-        pagingController: trendingPhotosCubit.pagingController,
+        pagingController: photosCubit.pagingController,
         builderDelegate: PagedChildBuilderDelegate<PhotoResponseEntity>(
           firstPageProgressIndicatorBuilder: (_) => const PhotoLoading(),
           newPageProgressIndicatorBuilder: (_) => const Padding(
